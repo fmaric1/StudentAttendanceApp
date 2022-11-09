@@ -1,0 +1,47 @@
+﻿#tabela {
+    width: 90%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+    
+
+tr {
+    height: 40px;
+}
+
+th, td {
+    width: 60px;
+    border: 2px solid black;
+    vertical-align: top;
+   
+}
+th:first-child {
+    width: 90px;
+}
+tr:first-child{
+    width: 90px;
+}
+th:nth-child(2){
+    width: 90px;
+}
+
+
+.tabela2 {
+    width: 120px;
+    border-collapse: collapse;
+    border-style: hidden;
+    text-align: center;
+}
+
+
+
+.zelena {
+    background-color: lightgreen;
+    height: 30px;
+    width: 10px;
+}
+
+.crvena {
+    background-color: lightcoral;
+}
