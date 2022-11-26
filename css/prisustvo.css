@@ -1,20 +1,19 @@
-﻿#tabela {
+﻿.tabela1{
     width: 90%;
     border-collapse: collapse;
-    text-align: left;
+    text-align: center;
 }
 
-    
 
-tr {
-    height: 40px;
-}
+
+
 
 th, td {
-    width: 60px;
+    min-width: 60px;
+    width: fit-content;
     border: 2px solid black;
     vertical-align: top;
-   
+    height: fit-content;
 }
 th:first-child {
     width: 90px;
@@ -27,13 +26,22 @@ th:nth-child(2){
 }
 
 
-.tabela2 {
-    width: 120px;
+.buttons{
+    display: inline-block;
+    padding-top: 10px;
+}
+
+.table2 {
+    width: 100px;
     border-collapse: collapse;
     border-style: hidden;
     text-align: center;
+    padding: 0px;
 }
 
+.boje{
+    min-height: 30px;
+}
 
 
 .zelena {
@@ -44,4 +52,11 @@ th:nth-child(2){
 
 .crvena {
     background-color: lightcoral;
+    height: 30px;
+    width: 10px;
+}
+.bijela {
+    background-color: white;
+    height: 30px;
+    width: 10px;
 }

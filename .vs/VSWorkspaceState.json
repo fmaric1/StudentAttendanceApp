@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\css",
-    "\\html"
+    "\\html",
+    "\\scripts"
   ],
-  "SelectedNode": "\\html\\prisustvo.html",
+  "SelectedNode": "\\scripts\\TabelaPrisustvo.js",
   "PreviewInSolutionExplorer": false
 }
