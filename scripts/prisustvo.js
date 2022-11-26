@@ -31,8 +31,8 @@ let data = {
 	},
 	{
 		"sedmica": 2,
-		"predavanja": 2,
-		"vjezbe": 0,
+		"predavanja": 0,
+		"vjezbe": 2,
 		"index": 12346
 	}
 	],

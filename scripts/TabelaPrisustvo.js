@@ -26,6 +26,8 @@ let TabelaPrisustvo = function (divRef, data) {
 			validno = false;
 		if (!indexi.includes(studenti.index))
 			validno = false;
+		if (studenti.sedmica > 15 || studenti.sedmica < 1)
+			validno = false;
 
 
 	}
@@ -82,7 +84,7 @@ let TabelaPrisustvo = function (divRef, data) {
 				for (let prisustvo of data.prisustva) {
 
 					if (element.index == prisustvo.index && prisustvo.sedmica == i) {
-						let text2 = document.createTextNode((prisustvo.predavanja + prisustvo.vjezbe) * 100 / (data.brojPredavanjaSedmicno + data.brojVjezbiSedmicno) + "%");
+						let text2 = document.createTextNode(Math.round((prisustvo.predavanja + prisustvo.vjezbe) * 10000 / (data.brojPredavanjaSedmicno + data.brojVjezbiSedmicno))/100 + "%");
 						cell2.appendChild(text2);
 					}
 				}
@@ -149,7 +151,7 @@ function staviPostotak(sedmica, data) {
 		let newCell = document.createElement("td");
 		let text3 = document.createTextNode("");
 		if (x != -1)
-			text3 = document.createTextNode((x * 100 / (data.brojPredavanjaSedmicno + data.brojVjezbiSedmicno)) + "%");
+			text3 = document.createTextNode(Math.round(x * 10000 / (data.brojPredavanjaSedmicno + data.brojVjezbiSedmicno))/100 + "%");
 		newCell.appendChild(text3);
 		a.parentNode.replaceChild(newCell, a);
 		newCell.id = "r" + (data.studenti.indexOf(element) + 1) + "c" + sedmica;
