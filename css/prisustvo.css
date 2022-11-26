@@ -24,6 +24,9 @@ tr:first-child{
 th:nth-child(2){
     width: 90px;
 }
+th:last-child{
+    width: 100%;
+}
 
 
 .buttons{

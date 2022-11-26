@@ -18,7 +18,7 @@ let TabelaPrisustvo = function (divRef, data) {
 		validno = false;
     }
 	let trenutnaSedmica = 0;
-	
+	let sedmice = [];
 	for (let studenti of data.prisustva) {
 		if (studenti.sedmica > trenutnaSedmica)
 			trenutnaSedmica = studenti.sedmica;
@@ -28,8 +28,17 @@ let TabelaPrisustvo = function (divRef, data) {
 			validno = false;
 		if (studenti.sedmica > 15 || studenti.sedmica < 1)
 			validno = false;
+		if (!sedmice.includes(studenti.sedmica))
+			sedmice.push(studenti.sedmica);
 
-
+	}
+	let zadnjaSedmica = trenutnaSedmica;
+	sedmice.sort();
+	if (sedmice.length > 1) {
+		for (let i = 1; i < sedmice.length; i++) {
+			if (sedmice[i] - sedmice[i - 1] != 1)
+				validno = false;
+	    }	
 	}
 
 	for (let z of indexi) {
@@ -46,9 +55,11 @@ let TabelaPrisustvo = function (divRef, data) {
 
 	let headerData = ["Ime i prezime", "Index"];
 
-	for (let i = 0; i < 15; i++) {
+	for (let i = 0; i < trenutnaSedmica; i++) {
  		headerData.push(sedmica[i]);
 	}
+	if (trenutnaSedmica!=15)
+	headerData.push(sedmica[trenutnaSedmica] + "-XV")
 
 	if (!validno) {
 		var upozorenje = document.createElement("p");
@@ -71,7 +82,6 @@ let TabelaPrisustvo = function (divRef, data) {
 				th.class = "zag";
 			row.appendChild(th);
 		}
-
 		for (let element of data.studenti) {
 			let row = tabela1.insertRow();
 			for (var key in element) {
@@ -79,7 +89,7 @@ let TabelaPrisustvo = function (divRef, data) {
 				let text = document.createTextNode(element[key]);
 				cell.appendChild(text);
 			}
-			for (let i = 1; i <= 15; i++) {
+			for (let i = 1; i <= trenutnaSedmica+1; i++) {
 				let cell2 = row.insertCell();
 				for (let prisustvo of data.prisustva) {
 
@@ -113,7 +123,7 @@ let TabelaPrisustvo = function (divRef, data) {
 	}
 
 	let sljedecaSedmica = function () {
-		if (trenutnaSedmica != 15) {
+		if (trenutnaSedmica != zadnjaSedmica) {
 			trenutnaSedmica += 1;
 			staviTablicu(trenutnaSedmica, data);
 			staviPostotak(trenutnaSedmica - 1, data);
