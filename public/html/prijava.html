@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="bs" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <script src="../scripts/poziviAjax.js"></script>
+    <script src="../scripts/prijava.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/prijava.css">
+</head>
+<body>
+    <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <div id="message-container">
+            <p id="message"></p>
+        </div>
+        <br><br>
+        <button type="submit" onclick="checkLogin(event)">Login</button>
+    </form>
+</body>
+
+</html>

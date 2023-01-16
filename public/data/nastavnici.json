@@ -1,0 +1,22 @@
+[
+  {
+    "nastavnik": {
+      "username": "admin",
+      "password_hash": "$2a$10$cuOHFYKCjp5EvG1EhrCpEO8I/5NxIc4vgA12KIQoNS035kzg1u/uy"
+    },
+    "predmeti": [
+      "Razvoj mobilnih aplikacija",
+      "PREDMET2",
+      "PREDMET3"
+    ]
+  },
+  {
+    "nastavnik": {
+      "username": "USERNAME2",
+      "password_hash": "PASSWORDHASH2"
+    },
+    "predmeti": [
+      "PREDMET1"
+    ]
+  }
+]
