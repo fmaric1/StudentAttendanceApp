@@ -12,22 +12,35 @@ header{
 }
 
 
-.menu li{
+#nav {
+    width:98%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+
+#logout-button {
+    height:80%;
+}
+
+#menu li{
     display: inline-block;
     width: 200px;
-    text-align: match-parent;
+    text-align: center;
     vertical-align: top;
-    
+    height: inherit;
  
 }
-.red1 li {
-    display: inline;
-}
-.ispod {
+
+
+#ispod {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 100px;
+
 
 }
 

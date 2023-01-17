@@ -26,7 +26,7 @@
                 fnCallback(false, null);
             }
         }
-        ajax.open("GET", "predmet", true);
+        ajax.open("GET", "predmeti", true);
         ajax.send();
     }
     function impl_postLogin(username, password, fnCallback) {
@@ -48,7 +48,7 @@
         var ajax = new XMLHttpRequest;
         ajax.onreadystatechange = function () {
             if (ajax.readyState == 4 && ajax.status == 200)
-                fnCallback(true, JSON.parse(ajax.responseText));
+                fnCallback(true, null);
             else if (ajax.readyState == 4) {
                 fnCallback(false, null);
             }

@@ -40,5 +40,59 @@
     "predmet": "Razvoj mobilnih aplikacija",
     "brojPredavanjaSedmicno": 2,
     "brojVjezbiSedmicno": 2
+  },
+  {
+    "studenti": [
+      {
+        "ime": "Neko Nekic",
+        "index": 12345
+      }
+
+    ],
+    "prisustva": [
+      {
+        "sedmica": 1,
+        "predavanja": 1,
+        "vjezbe": 1,
+        "index": 12345
+      },
+      {
+        "sedmica": 2,
+        "predavanja": 2,
+        "vjezbe": 0,
+        "index": 12345
+      }
+
+    ],
+    "predmet": "Web tehnologije",
+    "brojPredavanjaSedmicno": 2,
+    "brojVjezbiSedmicno": 2
+  },
+  {
+    "studenti": [
+      {
+        "ime": "Neko Nekic",
+        "index": 12345
+      }
+
+    ],
+    "prisustva": [
+      {
+        "sedmica": 1,
+        "predavanja": 1,
+        "vjezbe": 1,
+        "index": 12345
+      },
+      {
+        "sedmica": 2,
+        "predavanja": 2,
+        "vjezbe": 0,
+        "index": 12345
+      }
+
+    ],
+    "predmet": "Osnove operacionih istrazivanja",
+    "brojPredavanjaSedmicno": 2,
+    "brojVjezbiSedmicno": 2
   }
 ]

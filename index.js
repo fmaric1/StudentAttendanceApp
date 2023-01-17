@@ -12,7 +12,7 @@ function dajNastavnike() {
 }
 
 function dajPrisustva(predmet) {
-    const buffer = fs.readFileSync('data/prisustva.json');
+    const buffer = fs.readFileSync('public/data/prisustva.json');
     return (JSON.parse(buffer).find(item => item["predmet"] == predmet));
 }
 
@@ -67,10 +67,11 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/logout', function (req, res) {
+    console.log(res);
     req.session.destroy();
     res.send(); 
 });
-app.get('/predmet/:naziv', function (req, res) {
+app.get('/predmet/:naziv', function (req, res) { 
     if (req.session.data && req.session.data["logged"] &&
         req.session.data.predmeti.includes(req.params.naziv)) {
         res.send(JSON.stringify(dajPrisustva(req.params.naziv)));
