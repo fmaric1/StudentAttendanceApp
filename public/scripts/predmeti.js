@@ -1,4 +1,5 @@
 PoziviAjax.getPredmeti(function (status, data) {
+    
     var list = document.getElementById("menu");
     for (let i = 0; i < data.length; i++) {
         let member = data[i];
@@ -17,8 +18,9 @@ PoziviAjax.getPredmeti(function (status, data) {
                     ispod.innerHTML = "";
                     ispod.innerHTML = "<h2 id=\"predmet\">Predmet: " + naziv + "</h2>";
                     prisustvo = TabelaPrisustvo(ispod, data);
-                    trenutnaSedmica = 2;
-                    zadnjaSedmica = 2;
+                    
+                    trenutnaSedmica = parseInt(document.getElementById("ispod").classList.item(0).slice(2));
+                    zadnjaSedmica = parseInt(document.getElementById("ispod").classList.item(1).slice(2));
 
                 }
                 
