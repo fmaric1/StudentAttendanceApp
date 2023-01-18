@@ -12,8 +12,8 @@
   },
   {
     "nastavnik": {
-      "username": "USERNAME2",
-      "password_hash": "PASSWORDHASH2"
+      "username": "Filip Maric",
+      "password_hash": "$2a$10$Xaf1PWREqjTyu.AzFMQwkOFNteTtXZKNaeUhRzI6Q35V/kRJhgTsy"
     },
     "predmeti": [
       "PREDMET1"

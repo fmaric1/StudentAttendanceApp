@@ -67,7 +67,8 @@
             }
         }
         ajax.open("POST", "prisustvo/predmet/"+naziv+"/student/"+index, true);
-        ajax.setRequestHeader("Content-Type", "application/json:charset=UTF-8");
+        ajax.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        
         ajax.send(JSON.stringify(prisustvo));
     }
 

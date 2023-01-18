@@ -12,9 +12,13 @@ PoziviAjax.getPredmeti(function (status, data) {
             PoziviAjax.getPredmet(naziv, function (status, data) {
               
                 if (status) {
+                    
+                    ispod = document.getElementById("ispod");
+                    ispod.innerHTML = "";
+                    ispod.innerHTML = "<h2 id=\"predmet\">Predmet: " + naziv + "</h2>";
+                    prisustvo = TabelaPrisustvo(ispod, data);
                     trenutnaSedmica = 2;
                     zadnjaSedmica = 2;
-                    prisustvo = TabelaPrisustvo(document.getElementById("ispod"), data);
 
                 }
                 

@@ -17,18 +17,33 @@ function dajPrisustva(predmet) {
 }
 
 function azurirajPrisustva(predmet, index, { sedmica, predavanja, vjezbe }) {
+
     prisustva = dajPrisustva(predmet);
+    pronadeno = false;
     prisustva["prisustva"].forEach(function (item, i) {
+
         if (item["index"] == index && item["sedmica"] == sedmica) {
-            prisustva["prisustva"][i]["predavanja"] = +predavanja;
-            prisustva["prisustva"][i]["vjezbe"] = +vjezbe;
+            prisustva["prisustva"][i]["predavanja"] = predavanja;
+            prisustva["prisustva"][i]["vjezbe"] = vjezbe;
+            pronadeno = true;
         }
-    })
-    const buffer = fs.readFileSync('data/prisustva.json');
+
+    });
+    if (!pronadeno) {
+        number = parseInt(index);
+        prisustva["prisustva"].push({
+            "sedmica": sedmica,
+            "predavanja": predavanja,
+            "vjezbe": vjezbe,
+            "index": number
+        })
+    }
+    const buffer = fs.readFileSync('public/data/prisustva.json');
     svaPrisustva = JSON.parse(buffer);
-    svaPrisustva[svaPrisustv.findIndex(item => item["predmet"] == predmet)] = prisustva;
-    fs.writeFileSync('data/prisustva.json', JSON.stringify(svaPrisustva, null, 4));
-    return prisustva;
+    svaPrisustva[svaPrisustva.findIndex(item => item["predmet"] == predmet)] = prisustva;
+    fs.writeFileSync('public/data/prisustva.json', JSON.stringify(svaPrisustva, null, 4));
+    
+    return dajPrisustva(predmet);
 }
 
 app.use(session({
@@ -67,7 +82,6 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/logout', function (req, res) {
-    console.log(res);
     req.session.destroy();
     res.send(); 
 });
@@ -88,9 +102,10 @@ app.get('/predmeti', function (req, res) {
 
 });
 
-app.post('/prisustvo/predmet/:naziv/student/:index', function (req, res,) {
+app.post('/prisustvo/predmet/:naziv/student/:index', function (req, res) {
+    
     if (req.session.data && req.session.data["logged"] &&
-        req.session.data.predmeti.includes(req.params.nativ))
+        req.session.data.predmeti.includes(req.params.naziv))
         res.send(azurirajPrisustva(req.params.naziv, req.params.index, req.body));
     else
         res.status(403).send();

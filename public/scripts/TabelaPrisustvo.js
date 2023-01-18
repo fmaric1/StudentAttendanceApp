@@ -1,6 +1,5 @@
 let TabelaPrisustvo = function (divRef, data) {
-	console.log(divRef);
-	divRef.innerHTML = "";
+	
 	var validno = true;
 	if (data != null) {
 		var sedmica = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV"];
@@ -148,6 +147,7 @@ let TabelaPrisustvo = function (divRef, data) {
 };
 
 function staviPostotak(sedmica, data) {
+
 	for (let element of data.studenti) {
 		let x = -1;
 		for (let pris of data.prisustva) {
@@ -174,6 +174,7 @@ function staviPostotak(sedmica, data) {
 
 function staviTablicu(sedmica, data) {
 	for (let element of data.studenti) {
+		k = data.studenti.indexOf(element);
 		let table2 = document.createElement("table");
 		let row2 = table2.insertRow();
 		for (let i = 0; i < data.brojPredavanjaSedmicno; i++) {
@@ -188,8 +189,8 @@ function staviTablicu(sedmica, data) {
 		}
 		let row3 = table2.insertRow();
 		row3.style.height = "30px";
-		let pp = -1,
-			pv = -1;
+		pp = -1;
+		pv = -1;
 		for (let x of data.prisustva) {
 			if (x.index == element.index && x.sedmica == sedmica) {
 				pp = x.predavanja;
@@ -199,37 +200,100 @@ function staviTablicu(sedmica, data) {
 
 		for (let i = 0; i < data.brojPredavanjaSedmicno; i++) {
 			let cell3 = row3.insertCell();
-			if (pp == -1) {
+			if (i < pp)
+				cell3.className = "zelena";
+			else if(i>=pp && pp >=0 )
+				cell3.className = "crvena";
+			else 
+				cell3.className = "bijela";
+			string = "pp" + pp;
+			string2 = "pv" + pv;
+			cell3.classList.add(string);
+			cell3.classList.add(string2);
+			cell3.addEventListener("click", function () {
 
-				cell3.classname = "bijela";
+				pp = parseInt(cell3.classList.item(1).slice(2));
+				pv = parseInt(cell3.classList.item(2).slice(2));
+				console.log(pp);
+				if (cell3.classList.contains("bijela")) {
+					pp = 1;
+					pv = 0;
+					console.log("bijela");
+				}
+				else if (cell3.classList.contains("zelena")) {
+					pp = pp - 1;
+					console.log("zelena");
+				}
+				else if (cell3.classList.contains("crvena")) {
+					pp = pp + 1;
+					console.log("crvena");
+				}
+				h2 = document.getElementById("predmet").innerText;
+				naziv = h2.substr(9);
+				PoziviAjax.postPrisustvo(naziv, element.index, { "sedmica": sedmica, "predavanja": pp, "vjezbe": pv }, function (status, data) {
+					
+;					if (status) {
+						osvjeziTablicu(trenutnaSedmica, data);
 
-			} else {
-				if (i < pp)
-					cell3.className = "zelena";
-				else
-					cell3.className = "crvena";
-			}
+					}
+					
+						
+				});
+			});
 		}
 		for (let i = 0; i < data.brojVjezbiSedmicno; i++) {
 			let cell3 = row3.insertCell();
-			if (pv == -1) {
+			if(i < pv)
+			cell3.className = "zelena";
+			else if (i >= pv && pv >= 0)
+				cell3.className = "crvena";
+			else
+				cell3.className = "bijela";
+			string = "pp" + pp;
+			string2 = "pv" + pv;
+			cell3.classList.add(string);
+			cell3.classList.add(string2);
+			cell3.addEventListener("click", function () {
+					pp = parseInt(cell3.classList.item(1).slice(2));
+					pv = parseInt(cell3.classList.item(2).slice(2));
+				if (cell3.classList.contains("bijela")) {
+					pv = 1;
+					pp = 0;
+				}
+				else if (cell3.classList.contains("zelena")) {
+					pv = pv - 1;
+				}
+				else if (cell3.classList.contains("crvena")) {
+					pv = pv + 1;
+				}
+				h2 = document.getElementById("predmet").innerText;
+				naziv = h2.substr(9);
+				PoziviAjax.postPrisustvo(naziv, element.index, { "sedmica": sedmica, "predavanja": pp, "vjezbe": pv }, function (status, data) {
 
-				cell3.classname = "bijela";
+					; if (status) {
+						osvjeziTablicu(trenutnaSedmica, data);
 
-			} else {
-				if (i < pv)
-					cell3.className = "zelena";
-				else
-					cell3.className = "crvena";
-			}
+					}
+
+
+			});
+		});
 		}
 		let a = document.getElementById("r" + (data.studenti.indexOf(element) + 1) + "c" + sedmica);
 		let newCell = document.createElement("td");
 		row2 = table2.insertRow();
 		newCell.appendChild(table2);
+		newCell.extra
 		a.parentNode.replaceChild(newCell, a);
 		table2.style.height = "fitContent";
 		table2.className = "table2";
 		table2.id = "r" + (data.studenti.indexOf(element) + 1) + "c" + sedmica;
+		
 	}
+	
+}
+
+function osvjeziTablicu(sedmica, data) {
+	staviPostotak(sedmica, data);
+	staviTablicu(sedmica, data);
 }
