@@ -13,25 +13,25 @@ function dajNastavnike() {
 
 function dajPrisustva(predmet) {
     const buffer = fs.readFileSync('public/data/prisustva.json');
-    return (JSON.parse(buffer).find(item => item["predmet"] == predmet));
+    return (JSON.parse(buffer).find(element => element.predmet == predmet));
 }
 
 function azurirajPrisustva(predmet, index, { sedmica, predavanja, vjezbe }) {
 
-    prisustva = dajPrisustva(predmet);
+    listaPrisustva = dajPrisustva(predmet);
     pronadeno = false;
-    prisustva["prisustva"].forEach(function (item, i) {
+    listaPrisustva.prisustva.forEach(function (element, i) {
 
-        if (item["index"] == index && item["sedmica"] == sedmica) {
-            prisustva["prisustva"][i]["predavanja"] = predavanja;
-            prisustva["prisustva"][i]["vjezbe"] = vjezbe;
+        if (element.index == index && element.sedmica == sedmica) {
+            listaPrisustva.prisustva[i].predavanja = predavanja;
+            listaPrisustva.prisustva[i].vjezbe = vjezbe;
             pronadeno = true;
         }
 
     });
     if (!pronadeno) {
         number = parseInt(index);
-        prisustva["prisustva"].push({
+        listaPrisustva.prisustva.push({
             "sedmica": sedmica,
             "predavanja": predavanja,
             "vjezbe": vjezbe,
@@ -40,7 +40,7 @@ function azurirajPrisustva(predmet, index, { sedmica, predavanja, vjezbe }) {
     }
     const buffer = fs.readFileSync('public/data/prisustva.json');
     svaPrisustva = JSON.parse(buffer);
-    svaPrisustva[svaPrisustva.findIndex(item => item["predmet"] == predmet)] = prisustva;
+    svaPrisustva[svaPrisustva.findIndex(item => item.predmet == predmet)] = listaPrisustva;
     fs.writeFileSync('public/data/prisustva.json', JSON.stringify(svaPrisustva, null, 4));
     
     return dajPrisustva(predmet);
@@ -65,12 +65,12 @@ app.post('/login', function (req, res) {
     var login = req.body;
     var nastavnici = dajNastavnike();
     nastavnici.forEach((element) => {
-        if (element["nastavnik"]["username"] == login["username"] &&
-            bcrypt.compareSync(login["password"], element["nastavnik"]["password_hash"])) {
+        if (element.nastavnik.username == login.username &&
+            bcrypt.compareSync(login.password, element.nastavnik.password_hash)) {
             req.session.data = Object();
-            req.session.data["logged"] = true;
-            req.session.data["username"] = login["username"];
-            req.session.data["predmeti"] = element["predmeti"];
+            req.session.data.logged = true;
+            req.session.data.username = login.username;
+            req.session.data.predmeti = element.predmeti;
         }
     });
     if (req.session.data)
@@ -85,8 +85,8 @@ app.post('/logout', function (req, res) {
     req.session.destroy();
     res.send(); 
 });
-app.get('/predmet/:naziv', function (req, res) { 
-    if (req.session.data && req.session.data["logged"] &&
+app.get('/predmet/:naziv', function (req, res) {
+    if (req.session.data && req.session.data.logged &&
         req.session.data.predmeti.includes(req.params.naziv)) {
         res.send(JSON.stringify(dajPrisustva(req.params.naziv)));
     }
@@ -95,8 +95,8 @@ app.get('/predmet/:naziv', function (req, res) {
 });
 
 app.get('/predmeti', function (req, res) {
-    if (req.session.data && req.session.data["logged"])
-        res.send(JSON.stringify(req.session.data["predmeti"]));
+    if (req.session.data && req.session.data.logged)
+        res.send(JSON.stringify(req.session.data.predmeti));
     else
         res.status(403).send(JSON.stringify({ "greska": "Nastavnik nije loginovan" }));
 
@@ -104,7 +104,7 @@ app.get('/predmeti', function (req, res) {
 
 app.post('/prisustvo/predmet/:naziv/student/:index', function (req, res) {
     
-    if (req.session.data && req.session.data["logged"] &&
+    if (req.session.data && req.session.data.logged &&
         req.session.data.predmeti.includes(req.params.naziv))
         res.send(azurirajPrisustva(req.params.naziv, req.params.index, req.body));
     else

@@ -2,7 +2,7 @@
   {
     "nastavnik": {
       "username": "admin",
-      "password_hash": "$2a$10$cuOHFYKCjp5EvG1EhrCpEO8I/5NxIc4vgA12KIQoNS035kzg1u/uy"
+      "password_hash": "$2a$10$cuOHFYKCjp5EvG1EhrCpEO8I/5NxIc4vgA12KIQoNS035kzg1u/uy" 
     },
     "predmeti": [
       "Razvoj mobilnih aplikacija",
@@ -13,10 +13,23 @@
   {
     "nastavnik": {
       "username": "Filip Maric",
-      "password_hash": "$2a$10$Xaf1PWREqjTyu.AzFMQwkOFNteTtXZKNaeUhRzI6Q35V/kRJhgTsy"
+      "password_hash": "$2a$10$Zf1Tc5yhCgarmYy8c1r2FuWn9SUoosAZ13B1eatilpj9q6lK30ca6" 
     },
     "predmeti": [
-      "PREDMET1"
+      "Trosenje vremena",
+      "Probijanje rokova"
+    ]
+  },
+  {
+    "nastavnik": {
+      "username": "Marija Adzic",
+      "password_hash": "$2a$10$eK8R1q0KPhEKX9kLIgTAg.1GPcuY8Yt7qXvzyoPGefXguqti4JLpW"
+    },
+    "predmeti": [
+      "Imunologija",
+      "Imunogenetika",
+      "Sistematika algi"
     ]
   }
+
 ]
