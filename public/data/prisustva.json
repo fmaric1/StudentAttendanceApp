@@ -1,588 +1,606 @@
 [
-  {
-    "studenti": [
-      {
-        "ime": "Jerry Seinfeld",
-        "index": 12345
-      },
-      {
-        "ime": "Elaine Benes",
-        "index": 12346
-      },
-      {
-        "ime": "George Costanza",
-        "index": 12347
-      },
-      {
-        "ime": "Cosmo Kramer",
-        "index": 12348
-      },
-      {
-        "ime": "Postal Employee Newman",
-        "index": 12349
-      }
-    ],
-    "prisustva": [
-      {
-        "sedmica": 8,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12346
-      },
-      {
-        "sedmica": 8,
-        "predavanja": 2,
-        "vjezbe": 2,
-        "index": 12345
-      },
-      {
-        "sedmica": 8,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12348
-      },
-      {
-        "sedmica": 8,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12347
-      },
-      {
-        "sedmica": 8,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12349
-      },
-      {
-        "sedmica": 7,
-        "predavanja": 2,
-        "vjezbe": 1,
-        "index": 12345
-      },
-      {
-        "sedmica": 7,
-        "predavanja": 2,
-        "vjezbe": 1,
-        "index": 12346
-      },
-      {
-        "sedmica": 7,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12347
-      },
-      {
-        "sedmica": 7,
-        "predavanja": 2,
-        "vjezbe": 1,
-        "index": 12348
-      },
-      {
-        "sedmica": 7,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12349
-      },
-      {
-        "sedmica": 6,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12346
-      },
-      {
-        "sedmica": 6,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12347
-      },
-      {
-        "sedmica": 6,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12348
-      },
-      {
-        "sedmica": 6,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12349
-      },
-      {
-        "sedmica": 6,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12345
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12345
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12346
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12347
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12348
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 2,
-        "vjezbe": 1,
-        "index": 12349
-      },
-      {
-        "sedmica": 4,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12349
-      },
-      {
-        "sedmica": 4,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12347
-      },
-      {
-        "sedmica": 4,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12345
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 1,
-        "vjezbe": 1,
-        "index": 12349
-      },
-      {
-        "sedmica": 2,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12346
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 2,
-        "vjezbe": 2,
-        "index": 12345
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 2,
-        "vjezbe": 2,
-        "index": 12346
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 2,
-        "vjezbe": 2,
-        "index": 12347
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 2,
-        "vjezbe": 2,
-        "index": 12348
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 2,
-        "vjezbe": 2,
-        "index": 12349
-      },
-      {
-        "sedmica": 4,
-        "predavanja": 2,
-        "vjezbe": 2,
-        "index": 12346
-      }
-    ],
-    "predmet": "Razvoj mobilnih aplikacija",
-    "brojPredavanjaSedmicno": 2,
-    "brojVjezbiSedmicno": 2
-  },
-  {
-    "studenti": [
-      {
-        "ime": "Jerry Seinfeld",
-        "index": 12345
-      },
-      {
-        "ime": "Elaine Benes",
-        "index": 12346
-      },
-      {
-        "ime": "George Costanza",
-        "index": 12347
-      },
-      {
-        "ime": "Cosmo Kramer",
-        "index": 12348
-      },
-      {
-        "ime": "Postal Employee Newman",
-        "index": 12349
-      }
-    ],
-    "prisustva": [
-      {
-        "sedmica": 4,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12345
-      },
-      {
-        "sedmica": 4,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12346
-      },
-      {
-        "sedmica": 4,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12349
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12347
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 3,
-        "vjezbe": 0,
-        "index": 12348
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 3,
-        "vjezbe": 1,
-        "index": 12346
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12345
-      },
-      {
-        "sedmica": 2,
-        "predavanja": 3,
-        "vjezbe": 2,
-        "index": 12349
-      },
-      {
-        "sedmica": 2,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12347
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 3,
-        "vjezbe": 1,
-        "index": 12345
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 3,
-        "vjezbe": 1,
-        "index": 12346
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 3,
-        "vjezbe": 2,
-        "index": 12347
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12348
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 1,
-        "vjezbe": 1,
-        "index": 12349
-      }
-    ],
-    "predmet": "Web tehnologije",
-    "brojPredavanjaSedmicno": 3,
-    "brojVjezbiSedmicno": 2
-  },
-  {
-    "studenti": [
-      {
-        "ime": "Jerry Seinfeld",
-        "index": 12345
-      },
-      {
-        "ime": "Elaine Benes",
-        "index": 12346
-      },
-      {
-        "ime": "George Costanza",
-        "index": 12347
-      },
-      {
-        "ime": "Cosmo Kramer",
-        "index": 12348
-      },
-      {
-        "ime": "Postal Employee Newman",
-        "index": 12349
-      }
-    ],
-    "prisustva": [
-      {
-        "sedmica": 5,
-        "predavanja": 2,
-        "vjezbe": 2,
-        "index": 12345
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12347
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12346
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12348
-      },
-      {
-        "sedmica": 5,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12349
-      },
-      {
-        "sedmica": 4,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12348
-      },
-      {
-        "sedmica": 4,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12346
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12348
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12347
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12346
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12345
-      },
-      {
-        "sedmica": 3,
-        "predavanja": 1,
-        "vjezbe": 1,
-        "index": 12349
-      },
-      {
-        "sedmica": 2,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12345
-      },
-      {
-        "sedmica": 2,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12347
-      },
-      {
-        "sedmica": 2,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12348
-      },
-      {
-        "sedmica": 2,
-        "predavanja": 1,
-        "vjezbe": 1,
-        "index": 12349
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 1,
-        "vjezbe": 0,
-        "index": 12346
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 0,
-        "vjezbe": 1,
-        "index": 12348
-      },
-      {
-        "sedmica": 1,
-        "predavanja": 3,
-        "vjezbe": 0,
-        "index": 12349
-      }
-    ],
-    "predmet": "Osnove operacionih istrazivanja",
-    "brojPredavanjaSedmicno": 3,
-    "brojVjezbiSedmicno": 3
-  },
-  {
-    "studenti": [
-      {
-        "ime": "Jerry Seinfeld",
-        "index": 12345
-      },
-      {
-        "ime": "George Costanza",
-        "index": 12347
-      }
-    ],
-    "prisustva": [
-      {
-        "sedmica": 1,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12347
-      }
-    ],
-    "predmet": "Trosenje vremena",
-    "brojPredavanjaSedmicno": 3,
-    "brojVjezbiSedmicno": 3
-  },
-  {
-    "studenti": [
-      {
-        "ime": "Jerry Seinfeld",
-        "index": 12345
-      },
-      {
-        "ime": "George Costanza",
-        "index": 12347
-      }
-    ],
-    "prisustva": [
-      {
-        "sedmica": 3,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12347
-      }
-    ],
-    "predmet": "Probijanje rokova",
-    "brojPredavanjaSedmicno": 2,
-    "brojVjezbiSedmicno": 2
-  },
-  {
-    "studenti": [
-      {
-        "ime": "Jerry Seinfeld",
-        "index": 12345
-      },
-      {
-        "ime": "George Costanza",
-        "index": 12347
-      }
-    ],
-    "prisustva": [
-      {
-        "sedmica": 3,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12347
-      }
-    ],
-    "predmet": "Imunologija",
-    "brojPredavanjaSedmicno": 2,
-    "brojVjezbiSedmicno": 2
-  },
-  {
-    "studenti": [
-      {
-        "ime": "Jerry Seinfeld",
-        "index": 12345
-      },
-      {
-        "ime": "George Costanza",
-        "index": 12347
-      }
-    ],
-    "prisustva": [
-      {
-        "sedmica": 3,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12347
-      }
-    ],
-    "predmet": "Imunogenetika",
-    "brojPredavanjaSedmicno": 2,
-    "brojVjezbiSedmicno": 2
-  },
-  {
-    "studenti": [
-      {
-        "ime": "Jerry Seinfeld",
-        "index": 12345
-      },
-      {
-        "ime": "George Costanza",
-        "index": 12347
-      }
-    ],
-    "prisustva": [
-      {
-        "sedmica": 3,
-        "predavanja": 2,
-        "vjezbe": 0,
-        "index": 12347
-      }
-    ],
-    "predmet": "Sistematika algi",
-    "brojPredavanjaSedmicno": 2,
-    "brojVjezbiSedmicno": 2
-  }
+    {
+        "studenti": [
+            {
+                "ime": "Jerry Seinfeld",
+                "index": 12345
+            },
+            {
+                "ime": "Elaine Benes",
+                "index": 12346
+            },
+            {
+                "ime": "George Costanza",
+                "index": 12347
+            },
+            {
+                "ime": "Cosmo Kramer",
+                "index": 12348
+            },
+            {
+                "ime": "Postal Employee Newman",
+                "index": 12349
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 8,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12346
+            },
+            {
+                "sedmica": 8,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12345
+            },
+            {
+                "sedmica": 8,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12348
+            },
+            {
+                "sedmica": 8,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 8,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12349
+            },
+            {
+                "sedmica": 7,
+                "predavanja": 2,
+                "vjezbe": 1,
+                "index": 12345
+            },
+            {
+                "sedmica": 7,
+                "predavanja": 2,
+                "vjezbe": 1,
+                "index": 12346
+            },
+            {
+                "sedmica": 7,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 7,
+                "predavanja": 2,
+                "vjezbe": 1,
+                "index": 12348
+            },
+            {
+                "sedmica": 7,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12349
+            },
+            {
+                "sedmica": 6,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12346
+            },
+            {
+                "sedmica": 6,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 6,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12348
+            },
+            {
+                "sedmica": 6,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12349
+            },
+            {
+                "sedmica": 6,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12345
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12345
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12346
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12348
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 2,
+                "vjezbe": 1,
+                "index": 12349
+            },
+            {
+                "sedmica": 4,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12349
+            },
+            {
+                "sedmica": 4,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12347
+            },
+            {
+                "sedmica": 4,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12345
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 1,
+                "vjezbe": 1,
+                "index": 12349
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12346
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12345
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12346
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12347
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12348
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12349
+            },
+            {
+                "sedmica": 4,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12346
+            }
+        ],
+        "predmet": "Razvoj mobilnih aplikacija",
+        "brojPredavanjaSedmicno": 2,
+        "brojVjezbiSedmicno": 2
+    },
+    {
+        "studenti": [
+            {
+                "ime": "Jerry Seinfeld",
+                "index": 12345
+            },
+            {
+                "ime": "Elaine Benes",
+                "index": 12346
+            },
+            {
+                "ime": "George Costanza",
+                "index": 12347
+            },
+            {
+                "ime": "Cosmo Kramer",
+                "index": 12348
+            },
+            {
+                "ime": "Postal Employee Newman",
+                "index": 12349
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 4,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12345
+            },
+            {
+                "sedmica": 4,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12346
+            },
+            {
+                "sedmica": 4,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12349
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 3,
+                "vjezbe": 0,
+                "index": 12348
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 3,
+                "vjezbe": 1,
+                "index": 12346
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12345
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 3,
+                "vjezbe": 2,
+                "index": 12349
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 3,
+                "vjezbe": 1,
+                "index": 12345
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 3,
+                "vjezbe": 1,
+                "index": 12346
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 3,
+                "vjezbe": 2,
+                "index": 12347
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12348
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 1,
+                "vjezbe": 1,
+                "index": 12349
+            }
+        ],
+        "predmet": "Web tehnologije",
+        "brojPredavanjaSedmicno": 3,
+        "brojVjezbiSedmicno": 2
+    },
+    {
+        "studenti": [
+            {
+                "ime": "Jerry Seinfeld",
+                "index": 12345
+            },
+            {
+                "ime": "Elaine Benes",
+                "index": 12346
+            },
+            {
+                "ime": "George Costanza",
+                "index": 12347
+            },
+            {
+                "ime": "Cosmo Kramer",
+                "index": 12348
+            },
+            {
+                "ime": "Postal Employee Newman",
+                "index": 12349
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 5,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12345
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12346
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12348
+            },
+            {
+                "sedmica": 5,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12349
+            },
+            {
+                "sedmica": 4,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12348
+            },
+            {
+                "sedmica": 4,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12346
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12348
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12347
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12346
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12345
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 1,
+                "vjezbe": 1,
+                "index": 12349
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12345
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12347
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12348
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 1,
+                "vjezbe": 1,
+                "index": 12349
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12346
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 0,
+                "vjezbe": 1,
+                "index": 12348
+            },
+            {
+                "sedmica": 1,
+                "predavanja": 3,
+                "vjezbe": 0,
+                "index": 12349
+            }
+        ],
+        "predmet": "Osnove operacionih istrazivanja",
+        "brojPredavanjaSedmicno": 3,
+        "brojVjezbiSedmicno": 3
+    },
+    {
+        "studenti": [
+            {
+                "ime": "Jerry Seinfeld",
+                "index": 12345
+            },
+            {
+                "ime": "George Costanza",
+                "index": 12347
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 1,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12347
+            }
+        ],
+        "predmet": "Trosenje vremena",
+        "brojPredavanjaSedmicno": 3,
+        "brojVjezbiSedmicno": 3
+    },
+    {
+        "studenti": [
+            {
+                "ime": "Jerry Seinfeld",
+                "index": 12345
+            },
+            {
+                "ime": "George Costanza",
+                "index": 12347
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 3,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12347
+            }
+        ],
+        "predmet": "Probijanje rokova",
+        "brojPredavanjaSedmicno": 2,
+        "brojVjezbiSedmicno": 2
+    },
+    {
+        "studenti": [
+            {
+                "ime": "Jerry Seinfeld",
+                "index": 12345
+            },
+            {
+                "ime": "George Costanza",
+                "index": 12347
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 3,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 3,
+                "predavanja": 1,
+                "vjezbe": 1,
+                "index": 12345
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 2,
+                "vjezbe": 1,
+                "index": 12345
+            }
+        ],
+        "predmet": "Imunologija",
+        "brojPredavanjaSedmicno": 2,
+        "brojVjezbiSedmicno": 2
+    },
+    {
+        "studenti": [
+            {
+                "ime": "Jerry Seinfeld",
+                "index": 12345
+            },
+            {
+                "ime": "George Costanza",
+                "index": 12347
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 3,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12347
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 1,
+                "vjezbe": 0,
+                "index": 12345
+            }
+        ],
+        "predmet": "Imunogenetika",
+        "brojPredavanjaSedmicno": 2,
+        "brojVjezbiSedmicno": 2
+    },
+    {
+        "studenti": [
+            {
+                "ime": "Jerry Seinfeld",
+                "index": 12345
+            },
+            {
+                "ime": "George Costanza",
+                "index": 12347
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 3,
+                "predavanja": 2,
+                "vjezbe": 0,
+                "index": 12347
+            }
+        ],
+        "predmet": "Sistematika algi",
+        "brojPredavanjaSedmicno": 2,
+        "brojVjezbiSedmicno": 2
+    }
 ]

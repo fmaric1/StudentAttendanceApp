@@ -4,7 +4,10 @@ const app = express();
 const fs = require('fs')
 const bcrypt = require('bcrypt');  
 const path = require('path');
-
+const Sequelize = require('sequelize');
+const mysql = require('mysql');
+const db = require('../wt22p18556/public/scripts/database.js');
+const nastavnik = require('./public/scripts/nastavnik.js');
 
 function dajNastavnike() {
     const buffer = fs.readFileSync('public/data/nastavnici.json');
@@ -16,6 +19,10 @@ function dajPrisustva(predmet) {
     return (JSON.parse(buffer).find(element => element.predmet == predmet));
 }
 
+function dajStudente() {
+    const buffer = fs.readFileSync('public/data/prisustva.json');
+    prisustva = JSON.parse(buffer).
+}
 function azurirajPrisustva(predmet, index, { sedmica, predavanja, vjezbe }) {
 
     listaPrisustva = dajPrisustva(predmet);
@@ -45,6 +52,44 @@ function azurirajPrisustva(predmet, index, { sedmica, predavanja, vjezbe }) {
     
     return dajPrisustva(predmet);
 }
+
+function ubaciPodatkeIzJSON() {
+    nastavnici = dajNastavnike();
+    for (let i = 0; i < nastavnici.length; i++) {
+        db.Nastavnik.create({
+            username: nastavnici[i].nastavnik.username,
+            password_hash: nastavnici[i].nastavnik.password_hash
+        });
+    }
+
+
+}
+
+
+
+
+var pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'wt22'
+});
+
+pool.getConnection(function (error, connection) {
+    if (error) throw error;
+    console.log('Connected');
+});
+//kreira tabele u bazi, ako vec postoje prvo ih dropa
+db.sequelize.sync({ force: true })
+    .then(() => {
+        console.log('Tables created or already exist')
+        ubaciPodatkeIzJSON();
+    })
+    .catch(err => {
+        console.error('Error while creating tables:', err)
+    });
+//unosi podatke iz nastavnici.json i prisustva.json
+
 
 app.use(session({
     secret: 'Fipilinaaci',
