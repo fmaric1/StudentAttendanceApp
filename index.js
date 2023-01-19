@@ -115,7 +115,7 @@ function ubaciPodatkeIzJSON() {
                 indeks: studenti[i].indeks
             })
         }
-        prisustva = dajPrisustvaSva();
+    prisustva = dajPrisustvaSva();
         for (let i = 0; i < prisustva.length; i++) {
             user = predmetiArr[predmetiArr.findIndex(item => item.predmet == prisustva[i].predmet)].nastavnik;
             nastavnikid = nastavniciArr[nastavniciArr.findIndex(item => item.nastavnik == user)].id;
@@ -127,18 +127,22 @@ function ubaciPodatkeIzJSON() {
                 brojVjezbiSedmicno: prisustva[i].brojVjezbiSedmicno,
                 nastavnikId: nastavnikid
             });
-            for (let j = 0; j < prisustva[i].prisustva.length; j++) {
-                predmetid2 = predmetiArr[predmetiArr.findIndex(item => item.predmet == prisustva[i].predmet)].id;
-                studentid2 = studentiArr[studenti.findIndex(item => item.indeks == prisustva[i].prisustva[j].index)].id;
+            
+    }
+    for (let i = 0; i < prisustva.length; i++) {
+        for (let j = 0; j < prisustva[i].prisustva.length; j++) {
+            predmetid2 = predmetiArr[predmetiArr.findIndex(item => item.predmet == prisustva[i].predmet)].id;
+            studentid2 = studentiArr[studenti.findIndex(item => item.indeks == prisustva[i].prisustva[j].index)].id;
 
-                db.Prisustvo.create({
-                    sedmica: prisustva[i].prisustva[j].sedmica,
-                    predavanja: prisustva[i].prisustva[j].predavanja,
-                    vjezbe: prisustva[i].prisustva[j].vjezbe,
-                    studentId: studentid2,
-                    predmetId: predmetid2
-                });
-            }
+            db.Prisustvo.create({
+                sedmica: prisustva[i].prisustva[j].sedmica,
+                predavanja: prisustva[i].prisustva[j].predavanja,
+                vjezbe: prisustva[i].prisustva[j].vjezbe,
+                studentId: studentid2,
+                predmetId: predmetid2
+            });
+
+        }
     }
     
 
@@ -181,7 +185,7 @@ app.use(session({
 app.use(express.json());
 
 app.use(express.static('public'))
-
+app.use(express.urlencoded({ extended: true }));
 app.get('/:namepage.html', function (req, res) {
     const namepage = req.params.namepage;
     res.sendFile(path.join(__dirname, 'public', 'html', `${namepage}.html`));
@@ -189,6 +193,44 @@ app.get('/:namepage.html', function (req, res) {
 
 app.post('/login', function (req, res) {
     var login = req.body;
+    predmeti2 = [];
+    db.Nastavnik.findOne({
+        where: {
+            username: login.username
+        }
+    }).then(nastavnik => {
+        if (nastavnik && bcrypt.compareSync(login.password, nastavnik.password_hash)) {
+            
+            db.Predmet.findAll({
+                where: {
+                    nastavnikId: nastavnik.id
+                }
+            }).then(predmeti => {
+                let predmetiArray = []
+                for (let i = 0; i < predmeti.length; i++) {
+                    predmetiArray.push(predmeti[i].dataValues.predmet);
+                }
+                console.log(predmetiArray);
+                req.session.data = Object();
+                req.session.data.logged = true;
+                req.session.data.username = login.username;
+                req.session.data.predmeti = predmetiArray;
+                console.log(req.session.data);
+                res.json({ "poruka": "Uspjesna prijava" });
+            });
+
+
+
+           
+        }
+        else
+            res.status(400).json({ "poruka": "Neuspjesna prijava" });
+
+    }).catch(err => {
+        console.log(err);
+        res.send({ "poruka": "Neuspjesna prijava" });
+    });
+    /*
     var nastavnici = dajNastavnike();
     nastavnici.forEach((element) => {
         if (element.nastavnik.username == login.username &&
@@ -204,7 +246,7 @@ app.post('/login', function (req, res) {
 
     else
         return res.status(400).send(JSON.stringify({"poruka":"Neuspjesna prijava"}));
-
+        */
 });
 
 app.post('/logout', function (req, res) {

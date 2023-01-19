@@ -7,6 +7,6 @@
     "\\public\\html",
     "\\public\\scripts"
   ],
-  "SelectedNode": "\\public\\data\\nastavnici.json",
+  "SelectedNode": "\\public\\scripts\\database.js",
   "PreviewInSolutionExplorer": false
 }
