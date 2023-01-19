@@ -8,9 +8,17 @@ const Sequelize = require('sequelize');
 const mysql = require('mysql');
 const db = require('../wt22p18556/public/scripts/database.js');
 const nastavnik = require('./public/scripts/nastavnik.js');
+const student = require('./public/scripts/student.js');
+const predmet = require('./public/scripts/predmet.js');
+const prisustvo = require('./public/scripts/prisustvo.js');
 
 function dajNastavnike() {
     const buffer = fs.readFileSync('public/data/nastavnici.json');
+    return (JSON.parse(buffer));
+}
+
+function dajPrisustvaSva() {
+    const buffer = fs.readFileSync('public/data/prisustva.json');
     return (JSON.parse(buffer));
 }
 
@@ -19,9 +27,26 @@ function dajPrisustva(predmet) {
     return (JSON.parse(buffer).find(element => element.predmet == predmet));
 }
 
+function removeDuplicates(arr, prop) {
+    return arr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
+}
+
 function dajStudente() {
     const buffer = fs.readFileSync('public/data/prisustva.json');
-    prisustva = JSON.parse(buffer).
+    prisustva = JSON.parse(buffer);
+    const arr = [];
+    for (let i = 0; i < prisustva.length; i++) {
+        for (let j = 0; j < prisustva[i].studenti.length; j++) {
+            arr.push({
+                ime: prisustva[i].studenti[j].ime,
+                indeks: prisustva[i].studenti[j].index
+            });
+        }
+        
+    }
+    return removeDuplicates(arr, 'indeks');
 }
 function azurirajPrisustva(predmet, index, { sedmica, predavanja, vjezbe }) {
 
@@ -55,14 +80,70 @@ function azurirajPrisustva(predmet, index, { sedmica, predavanja, vjezbe }) {
 
 function ubaciPodatkeIzJSON() {
     nastavnici = dajNastavnike();
+    predmetiArr = [];
+    nastavniciArr = [];
+    studentiArr = [];
     for (let i = 0; i < nastavnici.length; i++) {
+
         db.Nastavnik.create({
             username: nastavnici[i].nastavnik.username,
             password_hash: nastavnici[i].nastavnik.password_hash
         });
+        id = i + 1;
+        nastavniciArr.push({
+            id: id,
+            nastavnik: nastavnici[i].nastavnik.username
+        });
+        for (let j = 0; j < nastavnici[i].predmeti.length; j++) {
+            id = j + 1;
+            predmetiArr.push({
+                id : id,
+                predmet: nastavnici[i].predmeti[j],
+                nastavnik: nastavnici[i].nastavnik.username
+            })
+        }
     }
+        studenti = dajStudente();
+        for (let i = 0; i < studenti.length; i++) {
+            db.Student.create({
+                ime: studenti[i].ime,
+                indeks: studenti[i].indeks
+            });
+            studentid = i + 1;
+            studentiArr.push({
+                id: studentid,
+                indeks: studenti[i].indeks
+            })
+        }
+        prisustva = dajPrisustvaSva();
+        for (let i = 0; i < prisustva.length; i++) {
+            user = predmetiArr[predmetiArr.findIndex(item => item.predmet == prisustva[i].predmet)].nastavnik;
+            nastavnikid = nastavniciArr[nastavniciArr.findIndex(item => item.nastavnik == user)].id;
+            predmetid = i + 1;
+            
+            db.Predmet.create({
+                predmet: prisustva[i].predmet,
+                brojPredavanjaSedmicno: prisustva[i].brojPredavanjaSedmicno,
+                brojVjezbiSedmicno: prisustva[i].brojVjezbiSedmicno,
+                nastavnikId: nastavnikid
+            });
+            for (let j = 0; j < prisustva[i].prisustva.length; j++) {
+                predmetid2 = predmetiArr[predmetiArr.findIndex(item => item.predmet == prisustva[i].predmet)].id;
+                studentid2 = studentiArr[studenti.findIndex(item => item.indeks == prisustva[i].prisustva[j].index)].id;
+
+                db.Prisustvo.create({
+                    sedmica: prisustva[i].prisustva[j].sedmica,
+                    predavanja: prisustva[i].prisustva[j].predavanja,
+                    vjezbe: prisustva[i].prisustva[j].vjezbe,
+                    studentId: studentid2,
+                    predmetId: predmetid2
+                });
+            }
+    }
+    
 
 
+    
 }
 
 
