@@ -375,120 +375,113 @@ app.get('/predmeti', function (req, res) {
 
 });
 
-app.post('/prisustvo/predmet/:naziv/student/:index', function (req, res) {
+app.post('/prisustvo/predmet/:naziv/student/:index', async function (req, res) {
 
     if (req.session.data && req.session.data.logged) {
-        db.Student.findOne({
-            where: {
-                indeks: req.params.index
-            }
-        }).then(student =>
-        {
-            studentid = student.id;
-            db.Predmet.findOne({
+        try {
+            const student = await db.Student.findOne({
+                where: {
+                    indeks: req.params.index
+                }
+            });
+
+            const predmet = await db.Predmet.findOne({
                 where: {
                     predmet: req.params.naziv
                 }
-            }).then(predmet => {
-                predmetid = predmet.id;
-                db.Prisustvo.findOne({
-                    where: {
-                        sedmica: req.body.sedmica,
-                        predmetId: predmetid,
-                        studentId: studentid
-                    }
-                }).then(prisustvo => {
-                    if (prisustvo) {
-                        prisustvo.update({ predavanja: req.body.predavanja, vjezbe: req.body.vjezbe })
-                    }
-                    else {
-                        db.Prisustvo.create({
-                            sedmica: req.body.sedmica,
-                            predavanja: req.body.predavanja,
-                            vjezbe: req.body.vjezbe,
-                            studentId: studentid,
-                            predmetId: predmetid
-                        })
-                    }
-                    studentFinal = [];
-                    prisustvaFinal = [];
-                    studentArray = [];
-                    prisustvaArray = [];
-                    idStudenata = [];
-                    idStudenataPrisustvo = [];
-                    db.Student.findAll()
-                        .then(students => {
-                            studentArray = students.map(student => student.dataValues);
+            });
 
-                            db.Predmet.findOne({
+            let prisustvo = await db.Prisustvo.findOne({
+                where: {
+                    sedmica: req.body.sedmica,
+                    predmetId: predmet.id,
+                    studentId: student.id
+                }
+            });
+
+            if (prisustvo) {
+                await prisustvo.update({ predavanja: req.body.predavanja, vjezbe: req.body.vjezbe });
+            } else {
+                prisustvo = await db.Prisustvo.create({
+                    sedmica: req.body.sedmica,
+                    predavanja: req.body.predavanja,
+                    vjezbe: req.body.vjezbe,
+                    studentId: student.id,
+                    predmetId: predmet.id
+                });
+            }
+
+            studentFinal = [];
+            prisustvaFinal = [];
+            studentArray = [];
+            prisustvaArray = [];
+            idStudenata = [];
+            idStudenataPrisustvo = [];
+            db.Student.findAll()
+                .then(students => {
+                    studentArray = students.map(student => student.dataValues);
+
+                    db.Predmet.findOne({
+                        where: {
+                            predmet: req.params.naziv
+                        }
+                    }).then(predmeti => {
+                        if (predmeti) {
+                            idpredmeta = predmeti.dataValues.id;
+
+                            db.Prisustvo.findAll({
                                 where: {
-                                    predmet: req.params.naziv
+                                    predmetId: idpredmeta
                                 }
-                            }).then(predmeti => {
-                                if (predmeti) {
-                                    idpredmeta = predmeti.dataValues.id;
+                            }).then(prisustva => {
+                                prisustvaArray = prisustva.map(prisustvo => prisustvo.dataValues);
 
-                                    db.Prisustvo.findAll({
-                                        where: {
-                                            predmetId: idpredmeta
-                                        }
-                                    }).then(prisustva => {
-                                        prisustvaArray = prisustva.map(prisustvo => prisustvo.dataValues);
+                                db.PredmetStudent.findAll({
+                                    where: {
+                                        predmetId: idpredmeta
+                                    }
+                                }).then(x => {
+                                    studentiIdijevi = x.map(prisustvo => prisustvo.dataValues.studentId);
 
-                                        db.PredmetStudent.findAll({
-                                            where: {
-                                                predmetId: idpredmeta
-                                            }
-                                        }).then(x => {
-                                            studentiIdijevi = x.map(prisustvo => prisustvo.dataValues.studentId);
-
-                                            brojP = predmeti.dataValues.brojPredavanjaSedmicno;
-                                            brojV = predmeti.dataValues.brojVjezbiSedmicno;
-                                            studentArray.forEach(x => {
-                                                if (studentiIdijevi.includes(x.id))
-                                                    studentFinal.push({ "id": x.id, "ime": x.ime, "index": x.indeks });
-                                            })
-                                            prisustvaArray.forEach(x => {
-                                                prisustvaFinal.push({
-                                                    "id": x.id,
-                                                    "sedmica": x.sedmica,
-                                                    "predavanja": x.predavanja,
-                                                    "vjezbe": x.vjezbe,
-                                                    "index": studentFinal.find(s => s.id === x.studentId).index
-                                                });
-                                            });
-                                            res.json([{
-                                                "studenti": JSON.parse(JSON.stringify(studentFinal)),
-                                                "prisustva": JSON.parse(JSON.stringify(prisustvaFinal)),
-                                                "brojPredavanjaSedmicno": brojP,
-                                                "brojVjezbiSedmicno": brojV
-                                            }])
-                                        })
-
-
-
-
-
-
-
+                                    brojP = predmeti.dataValues.brojPredavanjaSedmicno;
+                                    brojV = predmeti.dataValues.brojVjezbiSedmicno;
+                                    studentArray.forEach(x => {
+                                        if (studentiIdijevi.includes(x.id))
+                                            studentFinal.push({ "id": x.id, "ime": x.ime, "index": x.indeks });
+                                    })
+                                    prisustvaArray.forEach(x => {
+                                        prisustvaFinal.push({
+                                            "id": x.id,
+                                            "sedmica": x.sedmica,
+                                            "predavanja": x.predavanja,
+                                            "vjezbe": x.vjezbe,
+                                            "index": studentFinal.find(s => s.id === x.studentId).index
+                                        });
                                     });
-                                }
+                                    res.json([{
+                                        "studenti": JSON.parse(JSON.stringify(studentFinal)),
+                                        "prisustva": JSON.parse(JSON.stringify(prisustvaFinal)),
+                                        "brojPredavanjaSedmicno": brojP,
+                                        "brojVjezbiSedmicno": brojV
+                                    }])
+                                })
+
+
+
+
+
+
+
                             });
+                        }
+                    });
 
-                        })
                 })
-                
-
-            })
-            
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
         }
-        ).catch(err =>{
-            res.status(403).send();
-        })
-
     }
-    else
-        res.status(403).send();
 
 
 

@@ -294,44 +294,46 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	
 
 	let sljedecaSedmica = function () {
-		if (trenutnaSedmica != zadnjaSedmica) {
-			trenutnaSedmica += 1;
-			staviTablicu(trenutnaSedmica, data.property);
-			staviPostotak(trenutnaSedmica - 1, data.property);
-			ispod = document.getElementById("ispod");
-			while (ispod.classList.length > 0) {
-				ispod.classList.remove(ispod.classList.item(0));
+		PoziviAjax.getPredmet(naziv, function (status, data) {
+			if (trenutnaSedmica != zadnjaSedmica) {
+				trenutnaSedmica += 1;
+				staviTablicu(trenutnaSedmica, data);
+				staviPostotak(trenutnaSedmica - 1, data);
+				ispod = document.getElementById("ispod");
+				while (ispod.classList.length > 0) {
+					ispod.classList.remove(ispod.classList.item(0));
+				}
+				trenutna = "ts" + trenutnaSedmica;
+				zadnja = "zs" + zadnjaSedmica;
+				ispod.classList.add(trenutna);
+				ispod.classList.add(zadnja);
 			}
-			trenutna = "ts" + trenutnaSedmica;
-			zadnja = "zs" + zadnjaSedmica;
-			ispod.classList.add(trenutna);
-			ispod.classList.add(zadnja);
-		}
+});
+		
 	};
 
 	let prethodnaSedmica = function () {
-		if (trenutnaSedmica != 1) {
-			trenutnaSedmica -= 1;
-			staviTablicu(trenutnaSedmica, data.property);
-			staviPostotak(trenutnaSedmica + 1, data.property);
-			ispod = document.getElementById("ispod");
-			while (ispod.classList.length > 0) {
-				ispod.classList.remove(ispod.classList.item(0));
+		PoziviAjax.getPredmet(naziv, function (status, data) {
+			if (trenutnaSedmica != 1) {
+				trenutnaSedmica -= 1;
+				staviTablicu(trenutnaSedmica, data);
+				staviPostotak(trenutnaSedmica + 1, data);
+				ispod = document.getElementById("ispod");
+				while (ispod.classList.length > 0) {
+					ispod.classList.remove(ispod.classList.item(0));
+				}
+				trenutna = "ts" + trenutnaSedmica;
+				zadnja = "zs" + zadnjaSedmica;
+				ispod.classList.add(trenutna);
+				ispod.classList.add(zadnja);
 			}
-			trenutna = "ts" + trenutnaSedmica;
-			zadnja = "zs" + zadnjaSedmica;
-			ispod.classList.add(trenutna);
-			ispod.classList.add(zadnja);
-		}
-
+		});
 	};
 
 
 	let osvjeziTablicu = function (sedmica, data2) {
 		staviPostotak(sedmica, data2);
 		staviTablicu(sedmica, data2);
-		console.log("osvjezena");
-	
 	}
 	return {
 		modifyData: modifyData,
