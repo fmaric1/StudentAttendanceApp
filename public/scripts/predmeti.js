@@ -1,5 +1,4 @@
-PoziviAjax.getPredmeti(function (status, data) {
-    
+PoziviAjax.getPredmeti(async function (status, data) {
     var list = document.getElementById("menu");
     for (let i = 0; i < data.length; i++) {
         let member = data[i];
@@ -7,13 +6,11 @@ PoziviAjax.getPredmeti(function (status, data) {
         let link = document.createElement("a");
         link.innerHTML = member;
         link.href = "#";
-        let naziv = member;
         link.onclick = function () {
             let naziv = this.innerHTML;
-            PoziviAjax.getPredmet(naziv, function (status, data) {
-              
+            PoziviAjax.getPredmet(naziv, async function (status, data) {
+                
                 if (status) {
-                    
                     ispod = document.getElementById("ispod");
                     ispod.innerHTML = "";
                     ispod.innerHTML = "<h2 id=\"predmet\">Predmet: " + naziv + "</h2>";

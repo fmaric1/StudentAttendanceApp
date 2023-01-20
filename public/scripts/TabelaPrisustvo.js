@@ -154,9 +154,9 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	if (data != null) {
 		var sedmica = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV"];
 		var indexi = [];
-		for (let studenti of data.property.studenti) {
-			indexi.push(studenti.index);	
-		}
+		for (let i = 0; i < data.property["0"].studenti.length; i++) {
+			indexi.push(data.property["0"].studenti[i].index);
+        }
 
 		var br = indexi.length;
 		var br2 = new Set(indexi).size;
@@ -165,15 +165,27 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 		}
 		let trenutnaSedmica = 0;
 		let sedmice = [];
-		for (let studenti of data.property.prisustva) {
+		for (let i = 0; i < data.property["0"].prisustva.length; i++) {
+			studenti = data.property["0"].prisustva[i];
 			if (studenti.sedmica > trenutnaSedmica)
 				trenutnaSedmica = studenti.sedmica;
-			if (studenti.predavanja > data.property.brojPredavanjaSedmicno || studenti.vjezbe > data.property.brojVjezbiSedmicno || studenti.predavanja < 0 || studenti.vjezbe < 0)
+			if (studenti.predavanja > data.property["0"].brojPredavanjaSedmicno || studenti.vjezbe > data.property["0"].brojVjezbiSedmicno || studenti.predavanja < 0 || studenti.vjezbe < 0) {
 				validno = false;
-			if (!indexi.includes(studenti.index))
+
+				console.log(studenti);
+				console.log(data.property["0"].brojPredavanjaSedmicno);
+				console.log(data.property["0"].brojVjezbiSedmicno);
+				console.log("175");
+            }
+				
+			if (!indexi.includes(studenti.index)) { 
 				validno = false;
-			if (studenti.sedmica > 15 || studenti.sedmica < 1)
+				console.log("180");
+			}
+			if (studenti.sedmica > 15 || studenti.sedmica < 1) { 
 				validno = false;
+				console.log("184");
+			}
 			if (!sedmice.includes(studenti.sedmica))
 				sedmice.push(studenti.sedmica);
 
@@ -182,17 +194,21 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 		sedmice.sort();
 		if (sedmice.length > 1) {
 			for (let i = 1; i < sedmice.length; i++) {
-				if (sedmice[i] - sedmice[i - 1] != 1)
+				if (sedmice[i] - sedmice[i - 1] != 1) { 
 					validno = false;
+					console.log("196");
+				}
+					
 			}
 		}
-
 		for (let z of indexi) {
 			var niz = [];
-			for (let y of data.property.prisustva) {
+			for (let y of data.property["0"].prisustva) {
 				if (z == y.index) {
-					if (niz.includes(y.sedmica))
+					if (niz.includes(y.sedmica)) {
 						validno = false;
+						console.log("207");
+					}
 					niz.push(y.sedmica);
 
 				}
@@ -228,31 +244,34 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 					th.class = "zag";
 				row.appendChild(th);
 			}
-			for (let element of data.property.studenti) {
+			for (let element of data.property["0"].studenti) {
+
 				let row = tabela1.insertRow();
 				for (var key in element) {
-					let cell = row.insertCell();
-					let text = document.createTextNode(element[key]);
-					cell.appendChild(text);
+					if (key != "id") {
+						let cell = row.insertCell();
+						let text = document.createTextNode(element[key]);
+						cell.appendChild(text);
+					}
 				}
 				for (let i = 1; i <= trenutnaSedmica + 1; i++) {
 					let cell2 = row.insertCell();
-					for (let prisustvo of data.property.prisustva) {
+					for (let prisustvo of data.property["0"].prisustva) {
 
 						if (element.index == prisustvo.index && prisustvo.sedmica == i) {
-							let text2 = document.createTextNode(Math.round((prisustvo.predavanja + prisustvo.vjezbe) * 10000 / (data.property.brojPredavanjaSedmicno + data.property.brojVjezbiSedmicno)) / 100 + "%");
+							let text2 = document.createTextNode(Math.round((prisustvo.predavanja + prisustvo.vjezbe) * 10000 / (data.property["0"].brojPredavanjaSedmicno + data.property["0"].brojVjezbiSedmicno)) / 100 + "%");
 							cell2.appendChild(text2);
 						}
 					}
 
-					cell2.id = "r" + (data.property.studenti.indexOf(element) + 1) + "c" + i;
+					cell2.id = "r" + (data.property["0"].studenti.indexOf(element) + 1) + "c" + i;
 
 				}
 
 
 
 			}
-			staviTablicu(trenutnaSedmica, data.property);
+			staviTablicu(trenutnaSedmica, data.property["0"]);
 			while (divRef.classList.length > 0) {
 				divRef.classList.remove(ispod.classList.item(0));
 			}
@@ -284,9 +303,8 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	let sljedecaSedmica = function () {
 		if (trenutnaSedmica != zadnjaSedmica) {
 			trenutnaSedmica += 1;
-			
-			staviTablicu(trenutnaSedmica, data.property);
-			staviPostotak(trenutnaSedmica - 1, data.property);
+			staviTablicu(trenutnaSedmica, data.property["0"]);
+			staviPostotak(trenutnaSedmica - 1, data.property["0"]);
 			ispod = document.getElementById("ispod");
 			while (ispod.classList.length > 0) {
 				ispod.classList.remove(ispod.classList.item(0));
@@ -301,8 +319,8 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	let prethodnaSedmica = function () {
 		if (trenutnaSedmica != 1) {
 			trenutnaSedmica -= 1;
-			staviTablicu(trenutnaSedmica, data.property);
-			staviPostotak(trenutnaSedmica + 1, data.property);
+			staviTablicu(trenutnaSedmica, data.property["0"]);
+			staviPostotak(trenutnaSedmica + 1, data.property["0"]);
 			ispod = document.getElementById("ispod");
 			while (ispod.classList.length > 0) {
 				ispod.classList.remove(ispod.classList.item(0));

@@ -78,11 +78,12 @@ function azurirajPrisustva(predmet, index, { sedmica, predavanja, vjezbe }) {
     return dajPrisustva(predmet);
 }
 
-function ubaciPodatkeIzJSON() {
+async function ubaciPodatkeIzJSON() {
     nastavnici = dajNastavnike();
     predmetiArr = [];
     nastavniciArr = [];
     studentiArr = [];
+    idPr = 1;
     for (let i = 0; i < nastavnici.length; i++) {
 
         db.Nastavnik.create({
@@ -95,17 +96,17 @@ function ubaciPodatkeIzJSON() {
             nastavnik: nastavnici[i].nastavnik.username
         });
         for (let j = 0; j < nastavnici[i].predmeti.length; j++) {
-            id = j + 1;
             predmetiArr.push({
-                id : id,
+                id : idPr,
                 predmet: nastavnici[i].predmeti[j],
                 nastavnik: nastavnici[i].nastavnik.username
             })
+            idPr = idPr + 1;
         }
     }
         studenti = dajStudente();
         for (let i = 0; i < studenti.length; i++) {
-            db.Student.create({
+            await db.Student.create({
                 ime: studenti[i].ime,
                 indeks: studenti[i].indeks
             });
@@ -116,34 +117,46 @@ function ubaciPodatkeIzJSON() {
             })
         }
     prisustva = dajPrisustvaSva();
-        for (let i = 0; i < prisustva.length; i++) {
+    for (let i = 0; i < prisustva.length; ) {
+            
             user = predmetiArr[predmetiArr.findIndex(item => item.predmet == prisustva[i].predmet)].nastavnik;
             nastavnikid = nastavniciArr[nastavniciArr.findIndex(item => item.nastavnik == user)].id;
-            predmetid = i + 1;
             
-            db.Predmet.create({
-                predmet: prisustva[i].predmet,
-                brojPredavanjaSedmicno: prisustva[i].brojPredavanjaSedmicno,
-                brojVjezbiSedmicno: prisustva[i].brojVjezbiSedmicno,
-                nastavnikId: nastavnikid
-            });
-            
+        await db.Predmet.create({
+            predmet: prisustva[i].predmet,
+            brojPredavanjaSedmicno: prisustva[i].brojPredavanjaSedmicno,
+            brojVjezbiSedmicno: prisustva[i].brojVjezbiSedmicno,
+            nastavnikId: nastavnikid
+        }).then(i=i+1);
     }
     for (let i = 0; i < prisustva.length; i++) {
+        predmetid2 = predmetiArr[predmetiArr.findIndex(item => item.predmet == prisustva[i].predmet)].id;
+        
         for (let j = 0; j < prisustva[i].prisustva.length; j++) {
-            predmetid2 = predmetiArr[predmetiArr.findIndex(item => item.predmet == prisustva[i].predmet)].id;
+            
             studentid2 = studentiArr[studenti.findIndex(item => item.indeks == prisustva[i].prisustva[j].index)].id;
 
-            db.Prisustvo.create({
+            await db.Prisustvo.create({
                 sedmica: prisustva[i].prisustva[j].sedmica,
-                predavanja: prisustva[i].prisustva[j].predavanja,
+                predavanja: prisustva[  i].prisustva[j].predavanja,
                 vjezbe: prisustva[i].prisustva[j].vjezbe,
                 studentId: studentid2,
                 predmetId: predmetid2
             });
 
+           
+
+        }
+        for (let j = 0; j < prisustva[i].studenti.length; j++) {
+            studentid2 = studentiArr[studenti.findIndex(item => item.indeks == prisustva[i].studenti[j].index)].id;
+            await db.PredmetStudent.create({
+                predmetId: predmetid2,
+                studentId: studentid2
+
+            });
         }
     }
+
     
 
 
@@ -201,23 +214,11 @@ app.post('/login', function (req, res) {
     }).then(nastavnik => {
         if (nastavnik && bcrypt.compareSync(login.password, nastavnik.password_hash)) {
             
-            db.Predmet.findAll({
-                where: {
-                    nastavnikId: nastavnik.id
-                }
-            }).then(predmeti => {
-                let predmetiArray = []
-                for (let i = 0; i < predmeti.length; i++) {
-                    predmetiArray.push(predmeti[i].dataValues.predmet);
-                }
-                console.log(predmetiArray);
-                req.session.data = Object();
-                req.session.data.logged = true;
-                req.session.data.username = login.username;
-                req.session.data.predmeti = predmetiArray;
-                console.log(req.session.data);
-                res.json({ "poruka": "Uspjesna prijava" });
-            });
+            req.session.data = Object();
+            req.session.data.logged = true;
+            req.session.data.username = login.username;
+          
+            res.json({ "poruka": "Uspjesna prijava" });
 
 
 
@@ -254,29 +255,183 @@ app.post('/logout', function (req, res) {
     res.send(); 
 });
 app.get('/predmet/:naziv', function (req, res) {
-    if (req.session.data && req.session.data.logged &&
+    
+    if (req.session.data && req.session.data.logged) {
+        studentFinal = [];
+        prisustvaFinal = [];
+        studentArray = [];
+        prisustvaArray = [];
+        idStudenata = [];
+        idStudenataPrisustvo = [];
+        db.Student.findAll()
+            .then(students => {               
+                studentArray = students.map(student => student.dataValues);
+                
+                db.Predmet.findOne({
+                    where: {
+                        predmet: req.params.naziv
+                    }
+                }).then(predmeti => {
+                    if (predmeti) {
+                        idpredmeta = predmeti.dataValues.id;
+
+                    db.Prisustvo.findAll({
+                        where: {
+                            predmetId: idpredmeta
+                        }
+                    }).then(prisustva => {
+                        prisustvaArray = prisustva.map(prisustvo => prisustvo.dataValues);
+
+                        db.PredmetStudent.findAll({
+                            where: {
+                                predmetId: idpredmeta
+                            }
+                        }).then(x => {
+                            studentiIdijevi = x.map(prisustvo => prisustvo.dataValues.studentId);
+
+                            brojP = predmeti.dataValues.brojPredavanjaSedmicno;
+                            brojV = predmeti.dataValues.brojVjezbiSedmicno;
+                            studentArray.forEach(x => {
+                                if (studentiIdijevi.includes(x.id))
+                                    studentFinal.push({ "id": x.id, "ime": x.ime, "index": x.indeks });
+                            })
+                            prisustvaArray.forEach(x => {
+                                prisustvaFinal.push({
+                                    "id": x.id,
+                                    "sedmica": x.sedmica,
+                                    "predavanja": x.predavanja,
+                                    "vjezbe": x.vjezbe,
+                                    "index": studentFinal.find(s => s.id === x.studentId).index
+                                });
+                            });
+                            res.json([{
+                                "studenti": JSON.parse(JSON.stringify(studentFinal)),
+                                "prisustva": JSON.parse(JSON.stringify(prisustvaFinal)),
+                                "brojPredavanjaSedmicno": brojP,
+                                "brojVjezbiSedmicno": brojV
+                            }])
+                        })
+
+
+
+
+
+
+
+                    });
+                }
+                });
+                ;
+            })
+        
+
+    }
+    else
+        res.status(403).send();
+
+    /*if (req.session.data && req.session.data.logged &&
         req.session.data.predmeti.includes(req.params.naziv)) {
         res.send(JSON.stringify(dajPrisustva(req.params.naziv)));
     }
     else
-        res.status(403).send();
+        res.status(403).send();*/
 });
 
 app.get('/predmeti', function (req, res) {
-    if (req.session.data && req.session.data.logged)
+    
+    if (req.session.data.logged) {
+        
+        db.Nastavnik.findOne({
+            where: {
+                username: req.session.data.username
+            }
+        }).then(nastavnik => {
+
+            db.Predmet.findAll({
+                where: {
+                    nastavnikId: nastavnik.dataValues.id
+                }
+            }).then(predmeti => {
+                let predmetiArray = []
+                for (let i = 0; i < predmeti.length; i++) {
+                    predmetiArray.push(predmeti[i].dataValues.predmet);
+                }
+                res.send(predmetiArray);
+            });
+        });
+
+        
+    }
+    else 
+        res.status(403).json({ "greska": "Nastavnik nije loginovan" });
+
+    /*if (req.session.data && req.session.data.logged)
         res.send(JSON.stringify(req.session.data.predmeti));
     else
-        res.status(403).send(JSON.stringify({ "greska": "Nastavnik nije loginovan" }));
+        res.status(403).send(JSON.stringify({ "greska": "Nastavnik nije loginovan" }));*/
 
 });
 
-app.post('/prisustvo/predmet/:naziv/student/:index', function (req, res) {
-    
+app.post('/prisustvo/predmet/:naziv/student/:index',  function (req, res) {
+
+    if (req.session.data && req.session.data.logged) {
+        db.Student.findOne({
+            where: {
+                indeks: req.params.index
+            }
+        }).then(student =>
+        {
+            studentid = student.id;
+            db.Predmet.findOne({
+                where: {
+                    predmet: req.params.naziv
+                }
+            }).then(predmet => {
+                predmetid = predmet.id;
+                console.log(predmet.id)
+                db.Prisustvo.findOne({
+                    where: {
+                        sedmica: req.body.sedmica,
+                        predmetId: predmetid,
+                        studentId: studentid
+                    }
+                }).then(prisustvo => {
+                    if (prisustvo) {
+                        prisustvo.update({ predavanja: req.body.predavanja, vjezbe: req.body.vjezbe })
+                    }
+                    else {
+                        db.Prisustvo.create({
+                            sedmica: req.body.sedmica,
+                            predavanja: req.body.predavanja,
+                            vjezbe: req.body.vjezbe,
+                            studentId: studentid,
+                            predmetId: predmetid
+                        })
+                    }
+                    res.redirect('/predmet/${req.params.naziv}');
+                })
+                
+
+            })
+            
+        }
+        ).catch(err =>{
+            res.status(403).send();
+        })
+
+    }
+    else
+        res.status(403).send();
+
+
+
+
+    /*
     if (req.session.data && req.session.data.logged &&
         req.session.data.predmeti.includes(req.params.naziv))
         res.send(azurirajPrisustva(req.params.naziv, req.params.index, req.body));
     else
-        res.status(403).send();
+        res.status(403).send();*/
 });
 
 app.listen(3000, () => console.log('Server running at http://localhost:3000/'));
