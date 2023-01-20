@@ -86,7 +86,7 @@ async function ubaciPodatkeIzJSON() {
     idPr = 1;
     for (let i = 0; i < nastavnici.length; i++) {
 
-        db.Nastavnik.create({
+        await db.Nastavnik.create({
             username: nastavnici[i].nastavnik.username,
             password_hash: nastavnici[i].nastavnik.password_hash
         });
@@ -178,15 +178,18 @@ pool.getConnection(function (error, connection) {
     console.log('Connected');
 });
 //kreira tabele u bazi, ako vec postoje prvo ih dropa
-db.sequelize.sync({ force: true })
+/*!!!!!!!!!!!!!!
+ * ako imamo popunjenju bazu i zelimo unijeti na novo sve podatke iz nastavnici.json i prisustva.json
+ * moramo odkomentarisati parametre u db.sequelize.sync i poziv funckcije ubaciPodatkeIzJSON()
+*/
+db.sequelize.sync(/*{ force: true }*/)
     .then(() => {
         console.log('Tables created or already exist')
-        ubaciPodatkeIzJSON();
+        //ubaciPodatkeIzJSON();
     })
     .catch(err => {
         console.error('Error while creating tables:', err)
     });
-//unosi podatke iz nastavnici.json i prisustva.json
 
 
 app.use(session({
@@ -321,7 +324,7 @@ app.get('/predmet/:naziv', function (req, res) {
                     });
                 }
                 });
-                ;
+                
             })
         
 
@@ -372,7 +375,7 @@ app.get('/predmeti', function (req, res) {
 
 });
 
-app.post('/prisustvo/predmet/:naziv/student/:index',  function (req, res) {
+app.post('/prisustvo/predmet/:naziv/student/:index', function (req, res) {
 
     if (req.session.data && req.session.data.logged) {
         db.Student.findOne({
@@ -388,7 +391,6 @@ app.post('/prisustvo/predmet/:naziv/student/:index',  function (req, res) {
                 }
             }).then(predmet => {
                 predmetid = predmet.id;
-                console.log(predmet.id)
                 db.Prisustvo.findOne({
                     where: {
                         sedmica: req.body.sedmica,
@@ -408,7 +410,72 @@ app.post('/prisustvo/predmet/:naziv/student/:index',  function (req, res) {
                             predmetId: predmetid
                         })
                     }
-                    res.redirect('/predmet/${req.params.naziv}');
+                    studentFinal = [];
+                    prisustvaFinal = [];
+                    studentArray = [];
+                    prisustvaArray = [];
+                    idStudenata = [];
+                    idStudenataPrisustvo = [];
+                    db.Student.findAll()
+                        .then(students => {
+                            studentArray = students.map(student => student.dataValues);
+
+                            db.Predmet.findOne({
+                                where: {
+                                    predmet: req.params.naziv
+                                }
+                            }).then(predmeti => {
+                                if (predmeti) {
+                                    idpredmeta = predmeti.dataValues.id;
+
+                                    db.Prisustvo.findAll({
+                                        where: {
+                                            predmetId: idpredmeta
+                                        }
+                                    }).then(prisustva => {
+                                        prisustvaArray = prisustva.map(prisustvo => prisustvo.dataValues);
+
+                                        db.PredmetStudent.findAll({
+                                            where: {
+                                                predmetId: idpredmeta
+                                            }
+                                        }).then(x => {
+                                            studentiIdijevi = x.map(prisustvo => prisustvo.dataValues.studentId);
+
+                                            brojP = predmeti.dataValues.brojPredavanjaSedmicno;
+                                            brojV = predmeti.dataValues.brojVjezbiSedmicno;
+                                            studentArray.forEach(x => {
+                                                if (studentiIdijevi.includes(x.id))
+                                                    studentFinal.push({ "id": x.id, "ime": x.ime, "index": x.indeks });
+                                            })
+                                            prisustvaArray.forEach(x => {
+                                                prisustvaFinal.push({
+                                                    "id": x.id,
+                                                    "sedmica": x.sedmica,
+                                                    "predavanja": x.predavanja,
+                                                    "vjezbe": x.vjezbe,
+                                                    "index": studentFinal.find(s => s.id === x.studentId).index
+                                                });
+                                            });
+                                            res.json([{
+                                                "studenti": JSON.parse(JSON.stringify(studentFinal)),
+                                                "prisustva": JSON.parse(JSON.stringify(prisustvaFinal)),
+                                                "brojPredavanjaSedmicno": brojP,
+                                                "brojVjezbiSedmicno": brojV
+                                            }])
+                                        })
+
+
+
+
+
+
+
+                                    });
+                                }
+                            });
+
+                        })
                 })
                 
 

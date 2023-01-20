@@ -8,7 +8,7 @@ PoziviAjax.getPredmeti(async function (status, data) {
         link.href = "#";
         link.onclick = function () {
             let naziv = this.innerHTML;
-            PoziviAjax.getPredmet(naziv, async function (status, data) {
+            PoziviAjax.getPredmet(naziv, function (status, data) {
                 
                 if (status) {
                     ispod = document.getElementById("ispod");

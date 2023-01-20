@@ -5,7 +5,7 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	};
 
 	let staviPostotak = function (sedmica, data) {
-
+		data = data["0"];
 		for (let element of data.studenti) {
 			let x = -1;
 			for (let pris of data.prisustva) {
@@ -31,6 +31,7 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	}
 
 	let staviTablicu = function (sedmica, data) {
+		data = data["0"];
 		for (let element of data.studenti) {
 			k = data.studenti.indexOf(element);
 			let table2 = document.createElement("table");
@@ -89,7 +90,7 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 					naziv = h2.substr(9);
 					PoziviAjax.postPrisustvo(naziv, element.index, { "sedmica": sedmica, "predavanja": pp, "vjezbe": pv }, function (status, data) {
 
-						; if (status) {
+						if (status) {
 							osvjeziTablicu(trenutnaSedmica, data);
 
 						}
@@ -127,9 +128,8 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 					naziv = h2.substr(9);
 					PoziviAjax.postPrisustvo(naziv, element.index, { "sedmica": sedmica, "predavanja": pp, "vjezbe": pv }, function (status, data) {
 
-						; if (status) {
+						if (status) {
 							osvjeziTablicu(trenutnaSedmica, data);
-
 						}
 
 
@@ -172,19 +172,14 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 			if (studenti.predavanja > data.property["0"].brojPredavanjaSedmicno || studenti.vjezbe > data.property["0"].brojVjezbiSedmicno || studenti.predavanja < 0 || studenti.vjezbe < 0) {
 				validno = false;
 
-				console.log(studenti);
-				console.log(data.property["0"].brojPredavanjaSedmicno);
-				console.log(data.property["0"].brojVjezbiSedmicno);
-				console.log("175");
+				
             }
 				
 			if (!indexi.includes(studenti.index)) { 
 				validno = false;
-				console.log("180");
 			}
 			if (studenti.sedmica > 15 || studenti.sedmica < 1) { 
 				validno = false;
-				console.log("184");
 			}
 			if (!sedmice.includes(studenti.sedmica))
 				sedmice.push(studenti.sedmica);
@@ -196,7 +191,6 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 			for (let i = 1; i < sedmice.length; i++) {
 				if (sedmice[i] - sedmice[i - 1] != 1) { 
 					validno = false;
-					console.log("196");
 				}
 					
 			}
@@ -207,7 +201,6 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 				if (z == y.index) {
 					if (niz.includes(y.sedmica)) {
 						validno = false;
-						console.log("207");
 					}
 					niz.push(y.sedmica);
 
@@ -271,7 +264,7 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 
 
 			}
-			staviTablicu(trenutnaSedmica, data.property["0"]);
+			staviTablicu(trenutnaSedmica, data.property);
 			while (divRef.classList.length > 0) {
 				divRef.classList.remove(ispod.classList.item(0));
 			}
@@ -303,8 +296,8 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	let sljedecaSedmica = function () {
 		if (trenutnaSedmica != zadnjaSedmica) {
 			trenutnaSedmica += 1;
-			staviTablicu(trenutnaSedmica, data.property["0"]);
-			staviPostotak(trenutnaSedmica - 1, data.property["0"]);
+			staviTablicu(trenutnaSedmica, data.property);
+			staviPostotak(trenutnaSedmica - 1, data.property);
 			ispod = document.getElementById("ispod");
 			while (ispod.classList.length > 0) {
 				ispod.classList.remove(ispod.classList.item(0));
@@ -319,8 +312,8 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	let prethodnaSedmica = function () {
 		if (trenutnaSedmica != 1) {
 			trenutnaSedmica -= 1;
-			staviTablicu(trenutnaSedmica, data.property["0"]);
-			staviPostotak(trenutnaSedmica + 1, data.property["0"]);
+			staviTablicu(trenutnaSedmica, data.property);
+			staviPostotak(trenutnaSedmica + 1, data.property);
 			ispod = document.getElementById("ispod");
 			while (ispod.classList.length > 0) {
 				ispod.classList.remove(ispod.classList.item(0));
@@ -334,10 +327,11 @@ let TabelaPrisustvo = function (divRef, dataMain) {
 	};
 
 
-	let osvjeziTablicu = function (sedmica, data) {
-		modifyData(data);
-		staviPostotak(sedmica, data);
-		staviTablicu(sedmica, data);
+	let osvjeziTablicu = function (sedmica, data2) {
+		staviPostotak(sedmica, data2);
+		staviTablicu(sedmica, data2);
+		console.log("osvjezena");
+	
 	}
 	return {
 		modifyData: modifyData,
