@@ -1,4 +1,4 @@
-let TabelaPrisustvo = function (divRef, dataMain) {
+let TabelaPrisustvo = function (divRef, dataMain,naziv) {
 	let data = { property: dataMain };
 	let modifyData = function (newData) {
 		data.property = newData;

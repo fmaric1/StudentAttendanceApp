@@ -14,7 +14,7 @@ PoziviAjax.getPredmeti(async function (status, data) {
                     ispod = document.getElementById("ispod");
                     ispod.innerHTML = "";
                     ispod.innerHTML = "<h2 id=\"predmet\">Predmet: " + naziv + "</h2>";
-                    prisustvo = TabelaPrisustvo(ispod, data);
+                    prisustvo = TabelaPrisustvo(ispod, data,naziv);
                     
                     trenutnaSedmica = parseInt(document.getElementById("ispod").classList.item(0).slice(2));
                     zadnjaSedmica = parseInt(document.getElementById("ispod").classList.item(1).slice(2));
