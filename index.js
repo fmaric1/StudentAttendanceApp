@@ -2,10 +2,10 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const fs = require('fs')
-const bcrypt = require('bcrypt');  
+const bcrypt = require('bcryptjs');  
 const path = require('path');
 const Sequelize = require('sequelize');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const db = require('../wt22p18556/public/scripts/database.js');
 const nastavnik = require('./public/scripts/nastavnik.js');
 const student = require('./public/scripts/student.js');
@@ -167,9 +167,9 @@ async function ubaciPodatkeIzJSON() {
 
 
 var pool = mysql.createPool({
-    host: 'localhost',
+    host: 'mysql-db',
     user: 'root',
-    password: 'password',
+    password: 'root',
     database: 'wt22'
 });
 
@@ -182,10 +182,10 @@ pool.getConnection(function (error, connection) {
  * ako imamo popunjenju bazu i zelimo unijeti na novo sve podatke iz nastavnici.json i prisustva.json
  * moramo odkomentarisati parametre u db.sequelize.sync i poziv funckcije ubaciPodatkeIzJSON()
 */
-db.sequelize.sync(/*{ force: true }*/)
+db.sequelize.sync({ force: true })
     .then(() => {
         console.log('Tables created or already exist')
-        //ubaciPodatkeIzJSON();
+        ubaciPodatkeIzJSON();
     })
     .catch(err => {
         console.error('Error while creating tables:', err)
